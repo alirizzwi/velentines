@@ -142,7 +142,7 @@
       }
     }
 
-    /* Game */
+    /* Game 1: Catch hearts */
 
     .game-wrapper {
       display: flex;
@@ -237,6 +237,161 @@
       }
     }
 
+    /* Game 2: Love meter */
+
+    .love-game-inner {
+      text-align: center;
+    }
+
+    .love-heart-btn {
+      margin: 12px auto 10px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: none;
+      background: radial-gradient(circle at 30% 20%, #ffe4f1, #fb7185);
+      box-shadow: 0 14px 32px rgba(248, 113, 113, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .love-heart-btn span {
+      font-size: 3rem;
+      color: #ffffff;
+      text-shadow: 0 4px 10px rgba(190, 24, 93, 0.9);
+    }
+
+    .love-heart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(248, 113, 113, 0.9);
+    }
+
+    .love-heart-btn.bump {
+      transform: scale(1.08);
+    }
+
+    .love-meter {
+      margin: 16px auto 8px;
+      width: min(420px, 100%);
+      height: 18px;
+      border-radius: 999px;
+      background: #ffe4f1;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.45);
+    }
+
+    .love-meter-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #fb7185, #ec4899);
+      transition: width 0.2s ease;
+    }
+
+    .love-meter-label {
+      font-size: 0.95rem;
+      color: #be123c;
+    }
+
+    /* Questions + secret message */
+
+    .question-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 700px) {
+      .question-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .question-field label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      text-align: left;
+      color: #9f1239;
+    }
+
+    .question-field input {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid #fecdd3;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .question-field input:focus {
+      border-color: #fb7185;
+      box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.35);
+    }
+
+    .input-error {
+      border-color: #f97373 !important;
+      box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.45) !important;
+    }
+
+    .questions-error {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: #b91c1c;
+      text-align: center;
+      min-height: 18px;
+    }
+
+    .secret-message {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px dashed #fecaca;
+    }
+
+    .secret-message p {
+      text-align: left;
+    }
+
+    .secret-message span.answer {
+      font-weight: 600;
+      color: #be123c;
+    }
+
+    .love-100 {
+      margin: 18px 0 10px;
+      text-align: left;
+    }
+
+    .love-100 summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #be123c;
+      list-style: none;
+    }
+
+    .love-100 summary::marker,
+    .love-100 summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .love-100 ol {
+      margin-top: 10px;
+      padding-left: 1.2rem;
+      max-height: 260px;
+      overflow-y: auto;
+      font-size: 0.92rem;
+    }
+
+    .love-100 li {
+      margin-bottom: 4px;
+    }
+
     /* Final question */
 
     #final-card {
@@ -327,8 +482,9 @@
         So I made you this tiny corner of the internet, just for us.
       </p>
       <p>
-        First, you have to catch a few of my hearts. And at the end… I’ll ask you something I’ve really
-        been wanting to ask.
+        First, you have to catch <strong>50</strong> of my hearts. Then we’ll charge up a
+        little love meter together. And finally, you’ll answer a few questions so we can
+        build a tiny secret message.
       </p>
       <p class="small">Ready? Tap the button and catch my hearts.</p>
       <div class="center">
@@ -340,7 +496,7 @@
     </div>
   </section>
 
-  <!-- GAME -->
+  <!-- GAME 1: CATCH HEARTS -->
   <section id="game" class="section">
     <div class="section-inner">
       <div class="game-wrapper">
@@ -349,15 +505,240 @@
           Move the little bucket and catch my falling hearts. Mouse / touch to move, or arrow keys on a laptop.
         </p>
         <div class="score-row">
-          Hearts caught: <span id="score">0</span> / 10
+          Hearts caught: <span id="score">0</span> / 50
         </div>
         <div class="game-area" id="game-area">
           <div class="bucket" id="bucket"></div>
         </div>
         <div class="game-buttons">
           <button id="start-game-btn" class="primary-btn" type="button">Start game</button>
-          <button id="to-final-btn" class="primary-btn hidden" type="button">
-            One last thing…
+          <button id="to-love-game-btn" class="primary-btn hidden" type="button">
+            Play another game
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME 2: LOVE METER -->
+  <section id="love-game" class="section">
+    <div class="section-inner love-game-inner">
+      <h2>Charge the love meter</h2>
+      <p id="love-game-message">
+        Tap the big heart to charge up my love meter. When it hits 100%, you’ll unlock a secret message.
+      </p>
+
+      <button id="love-tap-btn" class="love-heart-btn" type="button">
+        <span>♥</span>
+      </button>
+
+      <div class="love-meter">
+        <div id="love-fill" class="love-meter-fill"></div>
+      </div>
+      <div class="love-meter-label">
+        Love meter: <span id="love-percent">0</span>%
+      </div>
+
+      <div class="center" style="margin-top: 14px;">
+        <button id="to-questions-btn" class="primary-btn hidden" type="button">
+          Answer a few questions for me
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUESTIONS + SECRET MESSAGE -->
+  <section id="questions" class="section">
+    <div class="section-inner">
+      <h2>Ten little questions just for you</h2>
+      <p>
+        Your answers here will build a tiny secret message that’s only complete with your words.
+      </p>
+
+      <div class="question-grid">
+        <div class="question-field">
+          <label for="q1">1. What do you love to be called by me? (your favorite nickname)</label>
+          <input id="q1" type="text" maxlength="40">
+        </div>
+        <div class="question-field">
+          <label for="q2">2. One word that describes you, in your eyes?</label>
+          <input id="q2" type="text" maxlength="40">
+        </div>
+        <div class="question-field">
+          <label for="q3">3. Your favorite memory of us together?</label>
+          <input id="q3" type="text" maxlength="80">
+        </div>
+        <div class="question-field">
+          <label for="q4">4. Something I do that always makes you smile?</label>
+          <input id="q4" type="text" maxlength="80">
+        </div>
+        <div class="question-field">
+          <label for="q5">5. One thing about you that you secretly hope I notice?</label>
+          <input id="q5" type="text" maxlength="80">
+        </div>
+        <div class="question-field">
+          <label for="q6">6. Your idea of a perfect date with me?</label>
+          <input id="q6" type="text" maxlength="80">
+        </div>
+        <div class="question-field">
+          <label for="q7">7. A song that feels like “us” to you?</label>
+          <input id="q7" type="text" maxlength="80">
+        </div>
+        <div class="question-field">
+          <label for="q8">8. A place that feels like “ours”, real or imagined?</label>
+          <input id="q8" type="text" maxlength="80">
+        </div>
+        <div class="question-field">
+          <label for="q9">9. A silly or cute nickname you’ve given me?</label>
+          <input id="q9" type="text" maxlength="40">
+        </div>
+        <div class="question-field">
+          <label for="q10">10. One promise you want us to make together?</label>
+          <input id="q10" type="text" maxlength="100">
+        </div>
+      </div>
+
+      <p id="questions-error" class="questions-error"></p>
+
+      <div class="center" style="margin-top: 10px;">
+        <button id="generate-message-btn" class="primary-btn" type="button">
+          Reveal our secret message
+        </button>
+      </div>
+
+      <div id="secret-message" class="secret-message hidden">
+        <h2>Our little secret message</h2>
+        <p>
+          To my <span id="a1" class="answer"></span>,
+        </p>
+        <p>
+          You are so <span id="a2" class="answer"></span>, and I love that one of your favourite memories of us is
+          <span id="a3" class="answer"></span>. I love how you light up when I
+          <span id="a4" class="answer"></span>, and how you never quite realise how beautiful
+          <span id="a5" class="answer"></span> is to me.
+        </p>
+        <p>
+          Our perfect date of <span id="a6" class="answer"></span>, with
+          <span id="a7" class="answer"></span> playing in the background, at
+          <span id="a8" class="answer"></span>, sounds like heaven. I love that you call me
+          <span id="a9" class="answer"></span>, and I promise I’ll always remember that we decided to
+          <span id="a10" class="answer"></span> together.
+        </p>
+        <p>
+          And because I can never say it enough, here are 100 little things I love about you:
+        </p>
+
+        <div class="love-100">
+          <details>
+            <summary>Tap to see 100 things I love about you</summary>
+            <ol>
+              <li>Your smile.</li>
+              <li>Your laugh.</li>
+              <li>The way you say my name.</li>
+              <li>How your eyes light up when you’re happy.</li>
+              <li>The way you tell stories.</li>
+              <li>How you care about people.</li>
+              <li>Your goofy side.</li>
+              <li>How you look when you’re focused.</li>
+              <li>Your honesty.</li>
+              <li>Your hugs.</li>
+              <li>The way you believe in me.</li>
+              <li>How you listen when I ramble.</li>
+              <li>Your random little rants.</li>
+              <li>The way you tease me.</li>
+              <li>How you remember tiny details.</li>
+              <li>Your patience with me.</li>
+              <li>Your stubbornness when it matters.</li>
+              <li>Your softness when I need it.</li>
+              <li>The way you say “it’s okay” and I believe it.</li>
+              <li>Your sleepy voice.</li>
+              <li>The way you get excited about small things.</li>
+              <li>Your music taste.</li>
+              <li>Your movie and show recommendations.</li>
+              <li>The way you send me memes.</li>
+              <li>How we can sit in silence and still feel close.</li>
+              <li>The way you overthink and then laugh at yourself.</li>
+              <li>How you always manage to make me smile.</li>
+              <li>Your kindness to strangers.</li>
+              <li>Your love for your friends and family.</li>
+              <li>The way you take care of yourself (or at least try).</li>
+              <li>The way you look at me when you think I’m not noticing.</li>
+              <li>The way you look at me when I am noticing.</li>
+              <li>Your sense of humor.</li>
+              <li>Your sense of style.</li>
+              <li>How beautiful you are without even trying.</li>
+              <li>How cute you are when you’re annoyed.</li>
+              <li>How dramatic you get over tiny things.</li>
+              <li>How you calm me down without even trying.</li>
+              <li>The way you hold my hand.</li>
+              <li>The way you fit in my arms.</li>
+              <li>Your texts that make my whole day.</li>
+              <li>Your good morning messages.</li>
+              <li>Your good night messages.</li>
+              <li>The way you worry about me.</li>
+              <li>The way you tell me to drink water.</li>
+              <li>The way you tell me to rest.</li>
+              <li>How you support my dreams.</li>
+              <li>How you share your dreams with me.</li>
+              <li>How you let me in, even when it’s hard.</li>
+              <li>How safe you make me feel.</li>
+              <li>Your confidence (even when you don’t see it).</li>
+              <li>Your vulnerability.</li>
+              <li>Your little jealous moments.</li>
+              <li>The way you protect what you love.</li>
+              <li>Your big heart.</li>
+              <li>The way you light up a room without noticing.</li>
+              <li>How you can make anything feel like an adventure.</li>
+              <li>How you look in your favourite outfit.</li>
+              <li>How you look in comfy clothes.</li>
+              <li>How you look when you’re just being completely yourself.</li>
+              <li>The way you say “I’m fine” when you’re totally not, and then finally tell me everything.</li>
+              <li>The way you apologize when you’re wrong.</li>
+              <li>The way you stand your ground when you’re right.</li>
+              <li>Your silly selfies.</li>
+              <li>Your serious selfies.</li>
+              <li>Your no-makeup face.</li>
+              <li>Your over-the-top glam look.</li>
+              <li>Your laugh when something is really, really funny.</li>
+              <li>Your fake annoyed face when I’m being a menace.</li>
+              <li>The way you always come back to me, no matter how chaotic life gets.</li>
+              <li>The way you talk about the future.</li>
+              <li>The way you talk about the past.</li>
+              <li>The way you live in the moment with me.</li>
+              <li>Your curiosity about the world.</li>
+              <li>Your creativity.</li>
+              <li>Your intelligence.</li>
+              <li>Your random fun facts.</li>
+              <li>The way you ask deep questions at 2 a.m.</li>
+              <li>The way you make even boring days feel special.</li>
+              <li>The way you inspire me to be better.</li>
+              <li>The way you love animals.</li>
+              <li>The way you love food.</li>
+              <li>The way you share bites with me.</li>
+              <li>How you get excited about our plans.</li>
+              <li>How you miss me (and actually say it).</li>
+              <li>How you trust me with your feelings.</li>
+              <li>How you let me see the real you.</li>
+              <li>How you let me love you properly.</li>
+              <li>How you choose me, over and over.</li>
+              <li>How you somehow become more beautiful to me every single day.</li>
+              <li>The sound of your laughter in my head.</li>
+              <li>The thought of your hand in mine.</li>
+              <li>The way your messages pop up at the perfect time.</li>
+              <li>The way your voice calms my overthinking.</li>
+              <li>The way your presence feels like home.</li>
+              <li>The way loving you feels so easy.</li>
+              <li>The way missing you hurts but in a sweet way.</li>
+              <li>The way imagining our future makes me smile.</li>
+              <li>Every tiny detail that makes you you.</li>
+              <li>That out of everyone in the world… it’s you who’s my favorite.</li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="center" style="margin-top: 14px;">
+          <button id="to-final-btn-2" class="primary-btn" type="button">
+            Now my last big question…
           </button>
         </div>
       </div>
@@ -369,7 +750,8 @@
     <div class="section-inner" id="final-card">
       <h2>So after all of that…</h2>
       <p>
-        After catching my hearts, there’s only one question left.
+        After catching my hearts, charging the love meter, and writing our tiny secret message,
+        there’s only one question left.
       </p>
       <h1 class="final-title">Will you be my Valentine?</h1>
 
@@ -383,16 +765,16 @@
   </section>
 
   <script>
-    // GAME SETUP
+    // GAME 1: CATCH HEARTS
     const gameArea = document.getElementById('game-area');
     const bucket = document.getElementById('bucket');
     const scoreSpan = document.getElementById('score');
     const startGameBtn = document.getElementById('start-game-btn');
-    const toFinalBtn = document.getElementById('to-final-btn');
+    const toLoveGameBtn = document.getElementById('to-love-game-btn');
     const gameMessage = document.getElementById('game-message');
 
     let score = 0;
-    const targetScore = 10;
+    const targetScore = 50;
     let gameRunning = false;
     let moveInterval = null;
     let spawnInterval = null;
@@ -412,7 +794,7 @@
       const x = Math.random() * (areaWidth - 30);
       heart.style.left = x + 'px';
       heart.style.top = '-30px';
-      heart.dataset.speed = (1.5 + Math.random() * 1.5).toString();
+      heart.dataset.speed = (2 + Math.random() * 2.5).toString(); // faster
       gameArea.appendChild(heart);
     }
 
@@ -461,7 +843,7 @@
 
       if (won) {
         gameMessage.textContent = 'You caught so many of my hearts. I guess that makes them all yours.';
-        toFinalBtn.classList.remove('hidden');
+        toLoveGameBtn.classList.remove('hidden');
       }
     }
 
@@ -470,11 +852,11 @@
       score = 0;
       scoreSpan.textContent = '0';
       gameMessage.textContent = 'Move the bucket to catch the falling hearts.';
-      toFinalBtn.classList.add('hidden');
+      toLoveGameBtn.classList.add('hidden');
       gameRunning = true;
       resetBucketPosition();
 
-      spawnInterval = setInterval(createHeart, 800);
+      spawnInterval = setInterval(createHeart, 550); // faster spawn
       moveInterval = setInterval(updateGame, 30);
     }
 
@@ -517,11 +899,87 @@
 
     startGameBtn.addEventListener('click', startGame);
 
-    toFinalBtn.addEventListener('click', () => {
+    toLoveGameBtn.addEventListener('click', () => {
+      document.getElementById('love-game').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // GAME 2: LOVE METER
+    const loveTapBtn = document.getElementById('love-tap-btn');
+    const loveFill = document.getElementById('love-fill');
+    const lovePercent = document.getElementById('love-percent');
+    const loveGameMessage = document.getElementById('love-game-message');
+    const toQuestionsBtn = document.getElementById('to-questions-btn');
+
+    let loveTaps = 0;
+    const maxLoveTaps = 30; // 30 taps = 100%
+
+    loveTapBtn.addEventListener('click', () => {
+      if (loveTaps >= maxLoveTaps) return;
+      loveTaps++;
+      const percent = Math.round((loveTaps / maxLoveTaps) * 100);
+      loveFill.style.width = percent + '%';
+      lovePercent.textContent = percent;
+
+      loveTapBtn.classList.add('bump');
+      setTimeout(() => loveTapBtn.classList.remove('bump'), 150);
+
+      if (loveTaps === maxLoveTaps) {
+        loveGameMessage.textContent = 'Overflow! My love meter is officially full because of you.';
+        toQuestionsBtn.classList.remove('hidden');
+      }
+    });
+
+    toQuestionsBtn.addEventListener('click', () => {
+      document.getElementById('questions').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // QUESTIONS + SECRET MESSAGE
+    const generateMessageBtn = document.getElementById('generate-message-btn');
+    const questionsError = document.getElementById('questions-error');
+    const secretMessage = document.getElementById('secret-message');
+    const answerSpans = [];
+
+    for (let i = 1; i <= 10; i++) {
+      answerSpans[i] = document.getElementById('a' + i);
+    }
+
+    generateMessageBtn.addEventListener('click', () => {
+      let allFilled = true;
+      const values = {};
+
+      for (let i = 1; i <= 10; i++) {
+        const input = document.getElementById('q' + i);
+        const value = input.value.trim();
+        if (!value) {
+          allFilled = false;
+          input.classList.add('input-error');
+        } else {
+          input.classList.remove('input-error');
+          values[i] = value;
+        }
+      }
+
+      if (!allFilled) {
+        questionsError.textContent = 'Fill in all the blanks so our secret message is complete.';
+        return;
+      }
+
+      questionsError.textContent = '';
+
+      for (let i = 1; i <= 10; i++) {
+        answerSpans[i].textContent = values[i];
+      }
+
+      secretMessage.classList.remove('hidden');
+      secretMessage.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    const toFinalBtn2 = document.getElementById('to-final-btn-2');
+    toFinalBtn2.addEventListener('click', () => {
       document.getElementById('final').scrollIntoView({ behavior: 'smooth' });
     });
 
-    // SNEAKY YES / NO BUTTONS
+    // FINAL YES / NO
     const yesBtn = document.getElementById('yes-btn');
     const noBtn = document.getElementById('no-btn');
     const finalMsg = document.getElementById('final-message');
@@ -571,5 +1029,3 @@
 
 </body>
 </html>
-      border: 2px solid rgba(248, 250, 252, 0.9);
-    }
